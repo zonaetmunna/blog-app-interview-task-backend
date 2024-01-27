@@ -5,6 +5,12 @@ const commentSchema = new Schema<TComment>({
   blogId: {
     type: Number,
     required: true,
+    ref: 'Blog',
+  },
+  id: {
+    type: Number,
+    required: true,
+    unique: true,
   },
   name: {
     type: String,

@@ -6,6 +6,11 @@ const blogSchema = new Schema<TBlog>({
     type: Number,
     required: true,
   },
+  id: {
+    type: Number,
+    required: true,
+    unique: true,
+  },
   title: {
     type: String,
     required: true,

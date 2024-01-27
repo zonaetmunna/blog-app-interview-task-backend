@@ -1,22 +1,23 @@
 import cors from 'cors'
-import express, { Application, Request, Response } from 'express'
-import cookieParser from 'cookie-parser'
+import express, { Application } from 'express'
+// import cookieParser from 'cookie-parser'
 import notFound from './app/middleware/notFound'
+import router from './app/routes'
+import globalErrorHandler from './app/middleware/globalErrorHandler'
 
 // create express app
 const app: Application = express()
 
 // application level parse middleware
 app.use(express.json())
-app.use(cookieParser)
-app.use(cors({ origin: ['http://localhost:5173'] })) //corse parse frontend base url request
+// app.use(cookieParser)
+app.use(cors()) //corse parse frontend base url request
 
-const test = (req: Request, res: Response) => {
-  const a = 10
-  res.json(a)
-}
+// application routes
+app.use('/api/v1', router)
 
-app.get('/', test)
+// global error handler
+app.use(globalErrorHandler)
 
 //Not Found
 app.use(notFound)
