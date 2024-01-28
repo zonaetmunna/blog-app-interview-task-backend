@@ -19,12 +19,12 @@ const getSingleBlogFromDB = async (id: string) => {
 }
 
 const updateBlogFromDB = async (id: number, data: TBlog) => {
-  const blog = await Blog.findByIdAndUpdate(id, data, { new: true })
+  const blog = await Blog.findOneAndUpdate({ id: id }, data, { new: true })
   return blog
 }
 
 const deleteBlogFromDB = async (id: number) => {
-  const blog = await Blog.findByIdAndDelete(id)
+  const blog = await Blog.findOneAndDelete({ id: id })
   return blog
 }
 

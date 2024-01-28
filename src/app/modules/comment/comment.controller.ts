@@ -16,8 +16,7 @@ const createComment = catchAsync(async (req, res) => {
 
 // gets comment with blogId
 const getsComment = catchAsync(async (req, res) => {
-  const blogId = req.query.blogId
-  const result = await CommentServices.getsCommentFromDB(blogId as string)
+  const result = await CommentServices.getsCommentFromDB()
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -28,11 +27,9 @@ const getsComment = catchAsync(async (req, res) => {
 
 // update Comment
 const updateComment = catchAsync(async (req, res) => {
-  const id = req.query.id
-  const result = await CommentServices.updateCommentIntoDB(
-    id as string,
-    req.body,
-  )
+  const { id } = req.params
+  console.log('🚀 ~ updateComment ~ id:', id)
+  const result = await CommentServices.updateCommentIntoDB(Number(id), req.body)
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -43,7 +40,8 @@ const updateComment = catchAsync(async (req, res) => {
 
 // delete comment
 const deleteComment = catchAsync(async (req, res) => {
-  const result = await CommentServices.deleteCommentFromDB(req.body)
+  const { id } = req.params
+  const result = await CommentServices.deleteCommentFromDB(Number(id))
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

@@ -8,20 +8,20 @@ const createCommentIntoDB = async (payload: TComment) => {
 }
 
 // gets comment service
-const getsCommentFromDB = async (blogId: string) => {
-  const comment = await Comment.find({ blogId: Number(blogId) })
+const getsCommentFromDB = async () => {
+  const comment = await Comment.find()
   return comment
 }
 
-const updateCommentIntoDB = async (id: string, payload: TComment) => {
-  const comment = await Comment.findByIdAndUpdate(id, payload, {
+const updateCommentIntoDB = async (id: number, payload: TComment) => {
+  const comment = await Comment.findOneAndUpdate({ id: id }, payload, {
     new: true,
   })
   return comment
 }
 
 const deleteCommentFromDB = async (id: number) => {
-  const comment = await Comment.findByIdAndDelete(id)
+  const comment = await Comment.findOneAndDelete({ id: id })
   return comment
 }
 
